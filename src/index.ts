@@ -32,18 +32,18 @@ const blake2b = (msg: any, len: number): string => {
   return _add0x(Blake.blake2bHex(msg, null, len))
 }
 
-const base58Decode = (str: string): string => {
+const base58Decode = (str: string) => {
   try {
     return _add0x(base58.decode(str).toString('hex'))
   } catch (e) {
-    return ''
+    return null
   }
 }
-const bech32Decode = (str: string): string => {
+const bech32Decode = (str: string) => {
   try {
     return Bech32.decode(str)
   } catch (e) {
-    return ''
+    return null
   }
 }
 
