@@ -1,4 +1,4 @@
-## unit-helper
+## crypto-helper
 [![NPM version](https://img.shields.io/npm/v/@abckey/crypto-helper.svg)](https://www.npmjs.com/package/@abckey/crypto-helper)
 
 A Blockchain Crypto Helper.
