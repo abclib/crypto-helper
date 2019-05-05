@@ -52,16 +52,16 @@ test(`bech32Decode`, () => {
 })
 
 test(`checksum('sha256')`, () => {
-  const res = CryptoHelper.checksum('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9', 'sha256')
+  const res = CryptoHelper.checkSum('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9', 'sha256')
   expect(res).toBe('4f496926')
 })
 
 test(`checksum('blake256')`, () => {
-  const res = CryptoHelper.checksum('0f21592183602dd04505784d35a44b2abca335d10c59', 'blake256')
+  const res = CryptoHelper.checkSum('0f21592183602dd04505784d35a44b2abca335d10c59', 'blake256')
   expect(res).toBe('5265d326')
 })
 
-test(`checksum('keccak256')`, () => {
-  const res = CryptoHelper.checksum('1200da825e55d03d6ab445f9dfc2faa744f39bda4aeb6ee07e6f81a17d8dc4d470187049d4ca00b2fd6642c8da50757711e1601a965ace2dbc06f8673dad1bc7bf', 'keccak256')
+test(`checkSum('keccak256')`, () => {
+  const res = CryptoHelper.checkSum('1200da825e55d03d6ab445f9dfc2faa744f39bda4aeb6ee07e6f81a17d8dc4d470187049d4ca00b2fd6642c8da50757711e1601a965ace2dbc06f8673dad1bc7bf', 'keccak256')
   expect(res).toBe('478234aa')
 })

@@ -42,7 +42,7 @@ const bech32Decode = (str: string) => {
   }
 }
 
-const checksum = (hex: string, hash: string) => {
+const checkSum = (hex: string, hash: string) => {
   switch (hash) {
     case 'sha256':
       return sha256(sha256(hex, 'hex'), 'hex').substr(0, 8)
@@ -62,7 +62,7 @@ const CryptoHelper = {
   base58Decode,
   bech32Decode,
   blake2b,
-  checksum
+  checkSum
 }
 
 export default CryptoHelper
