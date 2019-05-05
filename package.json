@@ -1,0 +1,36 @@
+{
+  "name": "@abckey/crypto-helper",
+  "version": "0.0.1",
+  "description": "A Blockchain Crypto Helper.",
+  "author": "abckey <hi@abckey.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc:check": "tsc --noEmit",
+    "tsc:watch": "npm run tsc:check -- --watch",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abcKeyCOM/crypto-helper.git"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.12",
+    "@types/node": "^11.13.8",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "base-x": "^3.0.5",
+    "bech32": "^1.1.3",
+    "blake-hash": "^1.1.0",
+    "blakejs": "^1.1.0",
+    "crypto-js": "^3.1.9-1"
+  },
+  "files": [
+    "dist"
+  ]
+}

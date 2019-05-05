@@ -1,0 +1,5 @@
+declare module 'crypto-js'
+declare module 'base-x'
+declare module 'blakejs'
+declare module 'bech32'
+declare module 'blake-hash'
