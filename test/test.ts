@@ -68,8 +68,8 @@ test(`blake2b`, () => {
   )
 })
 
-test(`base58.dec`, () => {
-  const res = CryptoHelper.base58('RAYj2KKVUohTu3hVdNJ4U6hQi7TNawpacH').dec().toString('hex')
+test(`base58.decode`, () => {
+  const res = CryptoHelper.base58('RAYj2KKVUohTu3hVdNJ4U6hQi7TNawpacH').decode().toString('hex')
   expect(res).toBe('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9b07d423a')
 })
 
