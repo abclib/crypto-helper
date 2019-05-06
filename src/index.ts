@@ -65,6 +65,7 @@ const isSegwitAddress = (
 }
 
 const CryptoHelper = {
+  BaseX,
   sha256,
   blake256,
   keccak256,
