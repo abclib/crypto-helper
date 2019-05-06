@@ -1,39 +1,35 @@
 
 import Segwit from './segwit'
-import CryptoJS from 'crypto-js'
 import BaseX from 'base-x'
-import Blake from 'blakejs'
+import CryptoJS from 'crypto-js'
+import BlakeJS from 'blakejs'
 import BlakeHash from 'blake-hash'
 
-const base58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
-
-const sha256 = (msg: string, type?: string): string => {
-  if (type === 'hex') msg = CryptoJS.enc.Hex.parse(msg)
-  return CryptoJS.SHA256(msg).toString(CryptoJS.enc.Hex)
-}
-
-const blake256 = (msg: any, type?: string): string => {
-  if (type === 'hex') msg = Buffer.from(msg, 'hex')
-  return BlakeHash('blake256').update(msg).digest('hex')
-}
-
-const keccak256 = (msg: any, type?: string): string => {
-  if (type === 'hex') msg = CryptoJS.enc.Hex.parse(msg)
-  return CryptoJS.SHA3(msg, { outputLength: 256 }).toString(CryptoJS.enc.Hex)
-}
-
-const blake2b = (msg: any, len: number, type?: string): string => {
-  if (type === 'hex') msg = Buffer.from(msg, 'hex')
-  return Blake.blake2bHex(msg, null, len)
-}
-
-const base58Decode = (str: string): string => {
-  try {
-    return base58.decode(str).toString('hex')
-  } catch (e) {
-    return ''
+class Base58 extends BaseX{
+  input: string
+  constructor(input: string) {
+    super('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
+    this.input = input
   }
+  dec = (): Buffer => this.decode(this.input)
+  enc =(): string => this.encode(this.input)
 }
+
+const sha256 = (input: string, enc: BufferEncoding = 'utf8'): string => {
+  let _enc = enc.toLowerCase()
+  _enc = enc.charAt(0).toUpperCase() + enc.slice(1)
+  return CryptoJS.SHA256(CryptoJS.enc[_enc].parse(input)).toString(CryptoJS.enc.Hex)
+}
+
+const keccak256 = (input: string, enc: BufferEncoding = 'utf8'): string => {
+  let _enc = enc.toLowerCase()
+  _enc = enc.charAt(0).toUpperCase() + enc.slice(1)
+  return CryptoJS.SHA3(CryptoJS.enc[_enc].parse(input), { outputLength: 256 }).toString(CryptoJS.enc.Hex)
+}
+
+const blake256 = (input: string, enc: BufferEncoding = 'utf8'): string => BlakeHash('blake256').update(input, enc).digest('hex')
+
+const blake2b = (input: string, outlen?: number, enc: BufferEncoding = 'utf8'): string => BlakeJS.blake2bHex(Buffer.from(input, enc), null, outlen)
 
 const checkSum = (hex: string, hash: string) => {
   switch (hash) {
@@ -44,10 +40,9 @@ const checkSum = (hex: string, hash: string) => {
     case 'keccak256':
       return keccak256(hex, 'hex').substr(0, 8)
     default:
-      return ''
+      return null
   }
 }
-
 
 const isSegwitAddress = (
   address: string,
@@ -66,10 +61,10 @@ const isSegwitAddress = (
 
 const CryptoHelper = {
   BaseX,
+  base58: (input: string) => new Base58(input),
   sha256,
   blake256,
   keccak256,
-  base58Decode,
   blake2b,
   checkSum,
   isSegwitAddress
