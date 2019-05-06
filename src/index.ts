@@ -1,7 +1,7 @@
 
+import Segwit from './segwit'
 import CryptoJS from 'crypto-js'
 import BaseX from 'base-x'
-import Bech32 from 'bech32'
 import Blake from 'blakejs'
 import BlakeHash from 'blake-hash'
 
@@ -34,13 +34,6 @@ const base58Decode = (str: string) => {
     return null
   }
 }
-const bech32Decode = (str: string) => {
-  try {
-    return Bech32.decode(str)
-  } catch (e) {
-    return null
-  }
-}
 
 const checkSum = (hex: string, hash: string) => {
   switch (hash) {
@@ -55,14 +48,31 @@ const checkSum = (hex: string, hash: string) => {
   }
 }
 
+
+const isSegwitAddress = (
+  address: string,
+  hrp?: string
+): boolean => {
+  hrp = hrp || 'bc'
+  let _decode = Segwit.decode(hrp, address)
+  if (_decode === null) {
+    hrp = 'tb'
+    _decode = Segwit.decode(hrp, address)
+  }
+  console.log(_decode)
+  if (_decode === null) return false
+  const _encode = Segwit.encode(hrp, _decode.ver, _decode.pro)
+  return _encode === address.toLowerCase()
+}
+
 const CryptoHelper = {
   sha256,
   blake256,
   keccak256,
   base58Decode,
-  bech32Decode,
   blake2b,
-  checkSum
+  checkSum,
+  isSegwitAddress
 }
 
 export default CryptoHelper

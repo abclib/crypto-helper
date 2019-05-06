@@ -45,12 +45,6 @@ test(`base58decode`, () => {
   expect(res).toBe('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9b07d423a')
 })
 
-test(`bech32Decode`, () => {
-  const res = CryptoHelper.bech32Decode('vtc1qh9y09s2crkp63mk26u3vrq9q4w3h8ee8gepjgw')
-  const received = { prefix: 'vtc', words: [0, 23, 5, 4, 15, 5, 16, 10, 24, 3, 22, 1, 26, 17, 27, 22, 10, 26, 28, 17, 12, 3, 0, 5, 0, 21, 14, 17, 23, 7, 25, 25, 7] }
-  expect(res).toEqual(received)
-})
-
 test(`checksum('sha256')`, () => {
   const res = CryptoHelper.checkSum('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9', 'sha256')
   expect(res).toBe('4f496926')
@@ -64,4 +58,14 @@ test(`checksum('blake256')`, () => {
 test(`checkSum('keccak256')`, () => {
   const res = CryptoHelper.checkSum('1200da825e55d03d6ab445f9dfc2faa744f39bda4aeb6ee07e6f81a17d8dc4d470187049d4ca00b2fd6642c8da50757711e1601a965ace2dbc06f8673dad1bc7bf', 'keccak256')
   expect(res).toBe('478234aa')
+})
+
+test(`isSegwitAddress(true)`, () => {
+  const res = CryptoHelper.isSegwitAddress('BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4', 'bc')
+  expect(res).toBe(true)
+})
+
+test(`isSegwitAddress(false)`, () => {
+  const res = CryptoHelper.isSegwitAddress('12KYrjTdVGjFMtaxERSk3gphreJ5US8aUP', 'bc')
+  expect(res).toBe(false)
 })
