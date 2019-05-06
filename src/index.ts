@@ -27,11 +27,11 @@ const blake2b = (msg: any, len: number, type?: string): string => {
   return Blake.blake2bHex(msg, null, len)
 }
 
-const base58Decode = (str: string) => {
+const base58Decode = (str: string): string => {
   try {
     return base58.decode(str).toString('hex')
   } catch (e) {
-    return null
+    return ''
   }
 }
 
@@ -44,7 +44,7 @@ const checkSum = (hex: string, hash: string) => {
     case 'keccak256':
       return keccak256(hex, 'hex').substr(0, 8)
     default:
-      return null
+      return ''
   }
 }
 
