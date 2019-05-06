@@ -59,7 +59,6 @@ const isSegwitAddress = (
     hrp = 'tb'
     _decode = Segwit.decode(hrp, address)
   }
-  console.log(_decode)
   if (_decode === null) return false
   const _encode = Segwit.encode(hrp, _decode.ver, _decode.pro)
   return _encode === address.toLowerCase()
