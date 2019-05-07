@@ -8,8 +8,21 @@ import BlakeHash from 'blake-hash'
 const base58 = (input: string) => {
   const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
   return {
-    decode: (): Buffer => B58.decode(input),
-    encode: (): string => B58.encode(input)
+    decode: () => {
+      try {
+        return B58.decode(input)
+      } catch {
+        return null
+      }
+    }
+    ,
+    encode: () => {
+      try {
+        return  B58.encode(input)
+      } catch {
+        return null
+      }
+    }
   }
 }
 
