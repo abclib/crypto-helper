@@ -77,7 +77,7 @@ const blake256 = (input: string, enc: BufferEncoding = 'utf8'): string => BlakeH
 
 const blake2b = (input: string, outlen?: number, enc: BufferEncoding = 'utf8'): string => BlakeJS.blake2bHex(Buffer.from(input, enc), null, outlen)
 
-const checkSum = (hex: string, hash: string) => {
+const checksum = (hex: string, hash: string) => {
   switch (hash) {
     case 'sha256':
       return sha256(sha256(hex, 'hex'), 'hex').substr(0, 8)
@@ -113,7 +113,7 @@ const CryptoHelper = {
   blake256,
   keccak256,
   blake2b,
-  checkSum,
+  checksum,
   isSegwitAddress
 }
 
