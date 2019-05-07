@@ -73,6 +73,11 @@ test(`base58.decode`, () => {
   expect(res).toBe('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9b07d423a')
 })
 
+test(`base58xmr.decode`, () => {
+  const res = CryptoHelper.base58xmr('41ez4ahijjAJrAXpJERmGaCXvBKmdFPs5N9aqeMaZVvKKkU41Sp21GMjPHwntt97ca3zToDFXRykpYT6nCSV5gTgNafYPsf').decode()
+  expect(res).toBe('1200da825e55d03d6ab445f9dfc2faa744f39bda4aeb6ee07e6f81a17d8dc4d470187049d4ca00b2fd6642c8da50757711e1601a965ace2dbc06f8673dad1bc7bf478234aa')
+})
+
 test(`checksum('sha256')`, () => {
   const res = CryptoHelper.checkSum('3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9', 'sha256')
   expect(res).toBe('4f496926')

@@ -1,5 +1,6 @@
 
 import Segwit from './segwit'
+import Base58xmr from './base58xmr'
 import BaseX from 'base-x'
 import CryptoJS from 'crypto-js'
 import BlakeJS from 'blakejs'
@@ -9,19 +10,19 @@ import BlakeHash from 'blake-hash'
 const baseX = (abc: string) => {
   const BX = BaseX(abc)
   return {
-    decode: (input: string): Buffer | null => {
+    decode: (input: string): Buffer => {
       try {
         return BX.decode(input)
       } catch {
-        return null
+        return Buffer.alloc(0)
       }
     }
     ,
-    encode: (input: Buffer): string | null => {
+    encode: (input: Buffer): string => {
       try {
         return  BX.encode(input)
       } catch {
-        return null
+        return ''
       }
     }
   }
@@ -30,19 +31,31 @@ const baseX = (abc: string) => {
 const base58 = (input: string | Buffer) => {
   const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
   return {
-    decode: (): Buffer | null => {
+    decode: (): Buffer => {
       try {
         return B58.decode(input.toString())
       } catch {
-        return null
+        return Buffer.alloc(0)
       }
     }
     ,
-    encode: (): string | null => {
+    encode: (): string => {
       try {
         return  B58.encode(Buffer.from(input.toString()))
       } catch {
-        return null
+        return ''
+      }
+    }
+  }
+}
+
+const base58xmr = (input: string) => {
+  return {
+    decode: (): string => {
+      try {
+        return Base58xmr.decode(input)
+      } catch {
+        return ''
       }
     }
   }
@@ -95,6 +108,7 @@ const isSegwitAddress = (
 const CryptoHelper = {
   baseX,
   base58,
+  base58xmr,
   sha256,
   blake256,
   keccak256,
