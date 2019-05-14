@@ -10,11 +10,11 @@ import BlakeHash from 'blake-hash'
 const baseX = (abc: string) => {
   const BX = BaseX(abc)
   return {
-    decode: (input: string): string | Buffer => {
+    decode: (input: string): Buffer => {
       try {
         return BX.decode(input)
       } catch {
-        return ''
+        return Buffer.alloc(0)
       }
     }
     ,
@@ -31,22 +31,21 @@ const baseX = (abc: string) => {
 const base58 = (input: string | Buffer) => {
   const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
   return {
-    decode: (enc: BufferEncoding | 'xmr' = 'hex'): string | Buffer => {
+    decode: (enc?: BufferEncoding | 'xmr'): any => {
       try {
-        let str = typeof input === 'string' ? input : input.toString()
-        const res = B58.decode(str)
-        if (enc === 'xmr') return Base58xmr.decode(str)
-        if (enc) return res.toString(enc)
-        return res
+        if (typeof input !== 'string') throw 'input error'
+        if (enc === 'xmr') return Base58xmr.decode(input)
+        if (enc) return B58.decode(input).toString(enc)
+        return B58.decode(input)
       } catch {
-        return ''
+        return Buffer.alloc(0)
       }
     }
     ,
     encode: (): string => {
       try {
-        let bin = typeof input === 'string' ? Buffer.from(input) : input
-        return B58.encode(bin)
+        if (typeof input === 'string') throw 'input error'
+        return B58.encode(input)
       } catch {
         return ''
       }

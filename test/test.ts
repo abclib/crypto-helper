@@ -20,7 +20,7 @@ test('checksum > blake256', CryptoTest, 'checksum', ['0f21592183602dd04505784d35
 test('checksum > keccak256', CryptoTest, 'checksum', ['1200da825e55d03d6ab445f9dfc2faa744f39bda4aeb6ee07e6f81a17d8dc4d470187049d4ca00b2fd6642c8da50757711e1601a965ace2dbc06f8673dad1bc7bf', 'keccak256'], '478234aa')
 
 test(`base58().decode()`, t => {
-  t.is(CryptoHelper.base58('RAYj2KKVUohTu3hVdNJ4U6hQi7TNawpacH').decode(), '3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9b07d423a')
+  t.is(CryptoHelper.base58('RAYj2KKVUohTu3hVdNJ4U6hQi7TNawpacH').decode('hex'), '3c0de8325856053b83a3be2c6028aff2e1fa5aa6f9b07d423a')
 })
 
 test(`base58().decode('xmr')`, t => {
