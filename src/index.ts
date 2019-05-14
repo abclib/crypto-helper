@@ -10,17 +10,17 @@ import BlakeHash from 'blake-hash'
 const baseX = (abc: string) => {
   const BX = BaseX(abc)
   return {
-    decode: (input: string): Buffer => {
+    decode: (input: string): string | Buffer => {
       try {
         return BX.decode(input)
       } catch {
-        return Buffer.alloc(0)
+        return ''
       }
     }
     ,
     encode: (input: Buffer): string => {
       try {
-        return  BX.encode(input)
+        return BX.encode(input)
       } catch {
         return ''
       }
@@ -31,17 +31,22 @@ const baseX = (abc: string) => {
 const base58 = (input: string | Buffer) => {
   const B58 = BaseX('123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz')
   return {
-    decode: (): Buffer => {
+    decode: (enc: BufferEncoding | 'xmr' = 'hex'): string | Buffer => {
       try {
-        return B58.decode(input.toString())
+        let str = typeof input === 'string' ? input : input.toString()
+        const res = B58.decode(str)
+        if (enc === 'xmr') return Base58xmr.decode(str)
+        if (enc) return res.toString(enc)
+        return res
       } catch {
-        return Buffer.alloc(0)
+        return ''
       }
     }
     ,
     encode: (): string => {
       try {
-        return  B58.encode(Buffer.from(input.toString()))
+        let bin = typeof input === 'string' ? Buffer.from(input) : input
+        return B58.encode(bin)
       } catch {
         return ''
       }
@@ -49,14 +54,19 @@ const base58 = (input: string | Buffer) => {
   }
 }
 
-const base58xmr = (input: string) => {
+const segwit = (
+  hrp: string,
+  str: string | number,
+  pro?: number[]
+  ) => {
   return {
-    decode: (): string => {
-      try {
-        return Base58xmr.decode(input)
-      } catch {
-        return ''
-      }
+    decode: () => {
+      if (typeof str === 'number') return null
+      return Segwit.decode(hrp, str)
+    },
+    encode: () => {
+      if (pro === undefined || typeof str === 'string') return null
+      return Segwit.encode(hrp, str, pro)
     }
   }
 }
@@ -90,31 +100,15 @@ const checksum = (hex: string, hash: string) => {
   }
 }
 
-const isSegwitAddress = (
-  address: string,
-  hrp?: string
-): boolean => {
-  hrp = hrp || 'bc'
-  let _decode = Segwit.decode(hrp, address)
-  if (_decode === null) {
-    hrp = 'tb'
-    _decode = Segwit.decode(hrp, address)
-  }
-  if (_decode === null) return false
-  const _encode = Segwit.encode(hrp, _decode.ver, _decode.pro)
-  return _encode === address.toLowerCase()
-}
-
 const CryptoHelper = {
   baseX,
   base58,
-  base58xmr,
   sha256,
   blake256,
   keccak256,
   blake2b,
   checksum,
-  isSegwitAddress
+  segwit
 }
 
 export default CryptoHelper
