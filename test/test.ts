@@ -1,8 +1,8 @@
-import test, { ExecutionContext } from 'ava';
+import test, { ExecutionContext } from 'ava'
 import CryptoHelper from '../dist/index'
 
 const CryptoTest = (t: ExecutionContext, type: string, input: any[], expected: string) => {
-  t.is(CryptoHelper[type](...input), expected);
+  t.is(CryptoHelper[type](...input), expected)
 }
 
 test('hex > sha256', CryptoTest, 'sha256', ['3c02d09261603fa859e5c9e3019431a92244fb6da6', 'hex'], 'f840ef9d2b3baedbbd1e475954bb86b9ead50724cf8940ec1c656d91bf36ad64')
