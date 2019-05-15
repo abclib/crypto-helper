@@ -57,7 +57,7 @@ const segwit = (
   hrp: string,
   str: string | number,
   pro?: number[]
-  ) => {
+) => {
   return {
     decode: () => {
       if (typeof str === 'number') return null
