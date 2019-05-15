@@ -95,7 +95,7 @@ const checksum = (hex: string, hash: string) => {
     case 'keccak256':
       return keccak256(hex, 'hex').substr(0, 8)
     default:
-      return null
+      throw new Error('hash error')
   }
 }
 
