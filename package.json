@@ -17,18 +17,18 @@
     "url": "https://github.com/abcKeyCOM/crypto-helper.git"
   },
   "devDependencies": {
-    "@types/node": "^11.13.8",
-    "ava": "^1.4.1",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.4.5"
+    "@types/node": "^13.7.2",
+    "ava": "^3.3.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "dependencies": {
-    "base-x": "^3.0.5",
+    "base-x": "^3.0.7",
     "bech32": "^1.1.3",
-    "bignumber.js": "^8.1.1",
+    "bignumber.js": "^9.0.0",
     "blake-hash": "^1.1.0",
     "blakejs": "^1.1.0",
-    "crypto-js": "^3.1.9-1"
+    "crypto-js": "^4.0.0"
   },
   "files": [
     "dist"
