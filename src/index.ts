@@ -2,10 +2,10 @@
 import Segwit from './segwit'
 import Base58xmr from './base58xmr'
 import BaseX from 'base-x'
+import Bech32 from 'bech32'
 import CryptoJS from 'crypto-js'
 import BlakeJS from 'blakejs'
 import BlakeHash from 'blake-hash'
-
 
 const baseX = (abc: string) => {
   const BX = BaseX(abc)
@@ -38,16 +38,34 @@ const base58 = (input: string | Buffer) => {
         if (enc) return B58.decode(input).toString(enc)
         return B58.decode(input)
       } catch {
-        return Buffer.alloc(0)
+        return null
       }
-    }
-    ,
+    },
     encode: (): string => {
       try {
         if (typeof input === 'string') throw 'input error'
         return B58.encode(input)
       } catch {
         return ''
+      }
+    }
+  }
+}
+
+const bech32 = (prefix: string, words?: number[]) => {
+  return {
+    decode: (): any => {
+      try {
+        return Bech32.decode(prefix)
+      } catch {
+        return null
+      }
+    },
+    encode: (): any => {
+      try {
+        return Bech32.encode(prefix, words)
+      } catch {
+        return null
       }
     }
   }
@@ -99,9 +117,10 @@ const checksum = (hex: string, hash: string) => {
   }
 }
 
-const CryptoHelper = {
+export default {
   baseX,
   base58,
+  bech32,
   sha256,
   blake256,
   keccak256,
@@ -109,5 +128,3 @@ const CryptoHelper = {
   checksum,
   segwit
 }
-
-export default CryptoHelper

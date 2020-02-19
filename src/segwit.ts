@@ -50,15 +50,15 @@ const decode = (
   let res = _convertbits(dec.words.slice(1), 5, 8, false)
   if (res === null || res.length < 2 || res.length > 40) return null
   if (dec.words[0] === 0 && res.length !== 20 && res.length !== 32) return null
-  return { ver: dec.words[0], pro: res }
+  return { ver: dec.words[0], data: res }
 }
 
 const encode = (
   hrp: string,
   ver: number,
-  pro: number[]
+  data: number[]
 ) => {
-  let res = _bech32Encode(hrp, [ver].concat(_convertbits(pro, 8, 5, true)))
+  let res = _bech32Encode(hrp, [ver].concat(_convertbits(data, 8, 5, true)))
   if (decode(hrp, res) === null) return null
   return res
 }
